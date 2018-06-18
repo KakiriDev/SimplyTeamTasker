@@ -56,18 +56,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.buttonCreateGroup).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startCreateDialog();
-            }
-        });
-
-
-    }
-
-    private void startCreateDialog(){
-
     }
 
 

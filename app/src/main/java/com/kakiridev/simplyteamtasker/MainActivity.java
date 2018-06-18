@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         textName = findViewById(R.id.textViewName);
         textEmail = findViewById(R.id.textViewEmail);
-        LogoutButton();
+
+        InitButton();
 
         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         }
         }; **/
     }
-    public void LogoutButton() {
+    public void InitButton() {
         ImageButton buttonLogout = findViewById(R.id.buttonLogout);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,10 +85,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity_LoginActivity();
             }
         });
+
+        ImageButton createGroupButton = findViewById(R.id.buttonCreateGroup);
+        createGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity_CreateGroupActivity();
+            }
+        });
     }
 
     public void startActivity_LoginActivity() {
         Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
+    }
+    public void startActivity_CreateGroupActivity() {
+        Intent i = new Intent(this, CreateGroupActivity.class);
         startActivity(i);
     }
 

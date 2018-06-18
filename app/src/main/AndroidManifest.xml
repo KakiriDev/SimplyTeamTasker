@@ -16,11 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
+
+        <activity android:name=".MainActivity"
             android:excludeFromRecents="true"
             android:theme="@style/AppTheme.NoTitle" />
-        <activity android:name=".CreateGroupActivity"></activity>
+
+        <activity android:name=".CreateGroupActivity"
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.Alert.NoActionBar" />
+
     </application>
 
 </manifest>

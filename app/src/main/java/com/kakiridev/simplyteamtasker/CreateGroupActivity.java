@@ -14,7 +14,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -23,6 +22,8 @@ public class CreateGroupActivity extends AppCompatActivity {
 
     EditText groupName, groupPassword, groupRepeatPassword;
     Button createGroupButton;
+    String name;
+    boolean groupNameAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +38,26 @@ public class CreateGroupActivity extends AppCompatActivity {
         createGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (groupName.getText().toString().length()>0){
-                    if(groupNameAvailable(groupName.getText().toString())){
-                        if (comparePassword(groupPassword.getText().toString(), groupRepeatPassword.getText().toString())) {
-                            createGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUserId());
-                            finish();
-                        } else {
-                            Toast.makeText(CreateGroupActivity.this, "Password is incorrect!", Toast.LENGTH_LONG).show();
+                if (groupName.getText().toString().length() > 0) {
+
+                    readData(new CheckNameInterface() {
+                        @Override
+                        public void checkName(boolean available) {
+
+                            if (available) {
+                                if (comparePassword(groupPassword.getText().toString(), groupRepeatPassword.getText().toString())) {
+                                    createGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUserId());
+                                    finish();
+                                } else {
+                                    Toast.makeText(CreateGroupActivity.this, "Password is incorrect!", Toast.LENGTH_LONG).show();
+                                }
+                            } else {
+                                Toast.makeText(CreateGroupActivity.this, "Name is already use", Toast.LENGTH_LONG).show();
+                            }
+
+                            groupNameAvailable = available;
                         }
-                    } else {
-                        Toast.makeText(CreateGroupActivity.this, "Name is already use", Toast.LENGTH_LONG).show();
-                    }
+                    }, groupName.getText().toString());
 
                 } else {
                     Toast.makeText(CreateGroupActivity.this, "Group name cannot be void", Toast.LENGTH_LONG).show();
@@ -81,23 +91,25 @@ public class CreateGroupActivity extends AppCompatActivity {
         return compare;
     }
 
-    boolean available;
-    public Boolean groupNameAvailable(final String name) {
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        Query applesQuery = ref.child("Settings");
-        applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+    DatabaseReference ref;
+
+    private void readData(final CheckNameInterface checkNameInterface, final String name) {
+        ref = FirebaseDatabase.getInstance().getReference();
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            boolean available = true;
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-//TODO not working, dont check name
                 for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
                     String group = appleSnapshot.getKey();
-
-                    if (group.equals(name)) {
-                        available = false;
+                    if (dataSnapshot.getChildren() != null) {
+                        if (group.equals(name)) {
+                            available = false;
+                        }
                     }
                 }
+                checkNameInterface.checkName(available);
             }
 
             @Override
@@ -105,9 +117,10 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Log.e("DTAG", "onCancelled", databaseError.toException());
             }
         });
+    }
 
-
-        return available;
+    private interface CheckNameInterface {
+        void checkName(boolean available);
     }
 
     public String getFirebaseUserId() {

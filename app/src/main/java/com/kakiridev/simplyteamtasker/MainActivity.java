@@ -93,6 +93,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity_CreateGroupActivity();
             }
         });
+
+        ImageButton joinGroupButton = findViewById(R.id.buttonJoinGroup);
+        joinGroupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity_JoinGroupActivity();
+            }
+        });
+
     }
 
     public void startActivity_LoginActivity() {
@@ -101,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void startActivity_CreateGroupActivity() {
         Intent i = new Intent(this, CreateGroupActivity.class);
+        startActivity(i);
+    }
+    public void startActivity_JoinGroupActivity() {
+        Intent i = new Intent(this, JoinGroupActivity.class);
         startActivity(i);
     }
 

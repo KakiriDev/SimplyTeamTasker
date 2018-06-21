@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="#ff7400"
+    tools:context=".JoinGroupActivity">
+
+    <TextView
+        android:id="@+id/groupNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:text="Name of Group" />
+
+    <EditText
+        android:id="@+id/groupName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="#333333"
+        android:hint="Name of Group..."
+        android:inputType="textCapSentences" />
+
+    <TextView
+        android:id="@+id/groupPasswordView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#333333"
+        android:text="Password" />
+
+    <EditText
+        android:id="@+id/groupPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password..."
+        android:textColor="#333333"
+        android:inputType="textPassword|textCapSentences" />
+
+
+    <Button
+        android:id="@+id/joinGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#333333"
+        android:text="Join to Group" />
+
+</LinearLayout>

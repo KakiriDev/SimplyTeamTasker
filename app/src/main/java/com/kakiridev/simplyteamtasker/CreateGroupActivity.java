@@ -38,46 +38,49 @@ public class CreateGroupActivity extends AppCompatActivity {
         createGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (groupName.getText().toString().length() > 0) {
-
-                    readData(new CheckNameInterface() {
-                        @Override
-                        public void checkName(boolean available) {
-
-                            if (available) {
-                                if (comparePassword(groupPassword.getText().toString(), groupRepeatPassword.getText().toString())) {
-                                    createGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUserId());
-                                    finish();
-                                } else {
-                                    Toast.makeText(CreateGroupActivity.this, "Password is incorrect!", Toast.LENGTH_LONG).show();
-                                }
-                            } else {
-                                Toast.makeText(CreateGroupActivity.this, "Name is already use", Toast.LENGTH_LONG).show();
-                            }
-
-                            groupNameAvailable = available;
-                        }
-                    }, groupName.getText().toString());
-
-                } else {
-                    Toast.makeText(CreateGroupActivity.this, "Group name cannot be void", Toast.LENGTH_LONG).show();
-                }
+                validateName();
             }
         });
     }
 
+    private void validateName() {
+        if (groupName.getText().toString().length() > 0) {
+            if (groupPassword.getText().toString().length() > 0) {
+                readData(new CheckNameInterface() {
+                    @Override
+                    public void checkName(boolean available) {
+
+                        if (available) {
+                            if (comparePassword(groupPassword.getText().toString(), groupRepeatPassword.getText().toString())) {
+                                createGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUserId());
+                                finish();
+                            } else {
+                                Toast.makeText(CreateGroupActivity.this, "Password is incorrect!", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(CreateGroupActivity.this, "Name is already use", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, groupName.getText().toString());
+            } else {
+                Toast.makeText(CreateGroupActivity.this, "Password cannot be void", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(CreateGroupActivity.this, "Group name cannot be void", Toast.LENGTH_LONG).show();
+        }
+    }
 
     public void createGroup(String name, String password, String user) {
 
         HashMap<String, String> dataMap = new HashMap<String, String>();
-        dataMap.put("password", password);
-        dataMap.put("name", name);
+        dataMap.put("Password", password);
+        dataMap.put("Name", name);
         DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference().child(name);
         mdatabase.child("Settings").setValue(dataMap);
 
         HashMap<String, String> dataMap2 = new HashMap<String, String>();
-        dataMap2.put("user", user);
-        mdatabase.child("Users").setValue(dataMap2);
+        dataMap2.put("User", user);
+        mdatabase.child("Users").child(user).setValue(dataMap2);
 
     }
 
@@ -92,10 +95,8 @@ public class CreateGroupActivity extends AppCompatActivity {
     }
 
 
-    DatabaseReference ref;
-
     private void readData(final CheckNameInterface checkNameInterface, final String name) {
-        ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             boolean available = true;
 
@@ -117,10 +118,6 @@ public class CreateGroupActivity extends AppCompatActivity {
                 Log.e("DTAG", "onCancelled", databaseError.toException());
             }
         });
-    }
-
-    private interface CheckNameInterface {
-        void checkName(boolean available);
     }
 
     public String getFirebaseUserId() {

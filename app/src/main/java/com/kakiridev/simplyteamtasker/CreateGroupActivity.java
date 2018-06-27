@@ -52,7 +52,7 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                         if (available) {
                             if (comparePassword(groupPassword.getText().toString(), groupRepeatPassword.getText().toString())) {
-                                createGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUserId());
+                                createGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUser());
                                 finish();
                             } else {
                                 Toast.makeText(CreateGroupActivity.this, "Password is incorrect!", Toast.LENGTH_LONG).show();
@@ -70,7 +70,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         }
     }
 
-    public void createGroup(String name, String password, String user) {
+    public void createGroup(String name, String password, FirebaseUser user) {
 
         HashMap<String, String> dataMap = new HashMap<String, String>();
         dataMap.put("Password", password);
@@ -79,8 +79,10 @@ public class CreateGroupActivity extends AppCompatActivity {
         mdatabase.child("Settings").setValue(dataMap);
 
         HashMap<String, String> dataMap2 = new HashMap<String, String>();
-        dataMap2.put("User", user);
-        mdatabase.child("Users").child(user).setValue(dataMap2);
+        dataMap2.put("User", user.getUid());
+        dataMap2.put("User Name", user.getDisplayName());
+        dataMap2.put("User Email", user.getEmail());
+        mdatabase.child("Users").child(user.getUid()).setValue(dataMap2);
 
     }
 
@@ -124,5 +126,9 @@ public class CreateGroupActivity extends AppCompatActivity {
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = currentFirebaseUser.getUid().toString();
         return uid;
+    }
+
+    public FirebaseUser getFirebaseUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 }

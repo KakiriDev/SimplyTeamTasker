@@ -35,16 +35,12 @@ public class JoinGroupActivity extends AppCompatActivity {
         joinGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                joinToGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUserId());
+                joinToGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUser());
             }
         });
-
     }
 
-    private void joinToGroup(final String name, final String password, final String user) {
-        //find group name
-        //check password
-        //check loged users
+    private void joinToGroup(final String name, final String password, final FirebaseUser user) {
         if (groupName.getText().toString().length() > 0) {
             if (groupPassword.getText().toString().length() > 0) {
                 readData(new ValidateJoinInterface() {
@@ -68,8 +64,6 @@ public class JoinGroupActivity extends AppCompatActivity {
                         }
                     }
                 }, groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUserId());
-
-
             } else {
                 Toast.makeText(JoinGroupActivity.this, "Password cannot be void", Toast.LENGTH_LONG).show();
             }
@@ -78,12 +72,13 @@ public class JoinGroupActivity extends AppCompatActivity {
         }
     }
 
-    public void addUserToGroup(String name, String user) {
+    public void addUserToGroup(String name, FirebaseUser user) {
         DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference().child(name);
         HashMap<String, String> dataMap2 = new HashMap<String, String>();
-        dataMap2.put("User", user);
-        mdatabase.child("Users").child(user).setValue(dataMap2);
-
+        dataMap2.put("User", user.getUid());
+        dataMap2.put("User Name", user.getDisplayName());
+        dataMap2.put("User Email", user.getEmail());
+        mdatabase.child("Users").child(user.getUid()).setValue(dataMap2);
     }
 
     private void readData(final ValidateJoinInterface validateJoinInterface, final String name, final String password, final String user) {
@@ -128,6 +123,10 @@ public class JoinGroupActivity extends AppCompatActivity {
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         String uid = currentFirebaseUser.getUid().toString();
         return uid;
+    }
+
+    public FirebaseUser getFirebaseUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 
 }

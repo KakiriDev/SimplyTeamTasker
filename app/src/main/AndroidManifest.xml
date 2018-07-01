@@ -25,10 +25,14 @@
             android:excludeFromRecents="true"
             android:theme="@style/Theme.Alert.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".JoinGroupActivity"
+        <activity
+            android:name=".JoinGroupActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.Alert.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".GroupView"
+            android:excludeFromRecents="true"
+            android:theme="@style/AppTheme.NoTitle" />
     </application>
 
 </manifest>

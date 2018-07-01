@@ -46,7 +46,8 @@ public class CreateGroupActivity extends AppCompatActivity {
     private void validateName() {
         if (groupName.getText().toString().length() > 0) {
             if (groupPassword.getText().toString().length() > 0) {
-                readData(new CheckNameInterface() {
+                FB fb = new FB();
+                fb.checkName(new CheckNameInterface() {
                     @Override
                     public void checkName(boolean available) {
 
@@ -94,32 +95,6 @@ public class CreateGroupActivity extends AppCompatActivity {
             compare = false;
         }
         return compare;
-    }
-
-
-    private void readData(final CheckNameInterface checkNameInterface, final String name) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            boolean available = true;
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
-                    String group = appleSnapshot.getKey();
-                    if (dataSnapshot.getChildren() != null) {
-                        if (group.equals(name)) {
-                            available = false;
-                        }
-                    }
-                }
-                checkNameInterface.checkName(available);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("DTAG", "onCancelled", databaseError.toException());
-            }
-        });
     }
 
     public String getFirebaseUserId() {

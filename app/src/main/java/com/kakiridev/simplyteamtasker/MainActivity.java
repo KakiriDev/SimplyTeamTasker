@@ -38,7 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    private ListView enterGroup;
     ImageView imageView;
     TextView textName, textEmail;
     FirebaseAuth mAuth;
@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        enterGroup = findViewById(R.id.listview);
         InitializeAuth();
-
+        initListViewOnItemClick();
         imageView = findViewById(R.id.imageView);
         textName = findViewById(R.id.textViewName);
         textEmail = findViewById(R.id.textViewEmail);
@@ -165,7 +166,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // GROUP LIST VIEW //
-
     public void setGroupListAdapter(String userId) {
         FB fb = new FB();
         fb.getListOfGroups(new UserGroupsInterface() {
@@ -182,5 +182,24 @@ public class MainActivity extends AppCompatActivity {
         }, userId);
     }
 
+    //Add Click Listener
+
+    private void initListViewOnItemClick() {
+        enterGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                TextView selectedText = v.findViewById(R.id.tv_group_name);
+                String groupName = selectedText.getText().toString();
+                Toast.makeText(getApplicationContext(), groupName, Toast.LENGTH_LONG).show();
+                startActivity_GroupView(groupName);
+            }
+        });
+    }
+
+    public void startActivity_GroupView (String groupName){
+        Intent i = new Intent(this, GroupView.class);
+        i.putExtra("GROUP_NAME", groupName);
+        startActivity(i);
+    }
 
 }

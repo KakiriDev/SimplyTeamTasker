@@ -43,7 +43,9 @@ public class JoinGroupActivity extends AppCompatActivity {
     private void joinToGroup(final String name, final String password, final FirebaseUser user) {
         if (groupName.getText().toString().length() > 0) {
             if (groupPassword.getText().toString().length() > 0) {
-                readData(new ValidateJoinInterface() {
+
+                FB fb = new FB();
+                fb.validateJoin(new ValidateJoinInterface() {
                     @Override
                     public void validateJoin(boolean correctName, boolean correctPassword, boolean newUserId) {
 
@@ -81,43 +83,7 @@ public class JoinGroupActivity extends AppCompatActivity {
         mdatabase.child("Users").child(user.getUid()).setValue(dataMap2);
     }
 
-    private void readData(final ValidateJoinInterface validateJoinInterface, final String name, final String password, final String user) {
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            boolean correctName = false;
-            boolean correctPassword = false;
-            boolean correctUserId = true;
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot appleSnapshot : dataSnapshot.getChildren()) {
-                    correctName = false;
-                    correctPassword = false;
-                    correctUserId = true;
-
-                    if (dataSnapshot.getChildren() != null) {
-                        if (appleSnapshot.getKey().equals(name) ) {
-                            correctName = true;
-                            if(dataSnapshot.child(name).child("Settings").child("Password").getValue(String.class).equals(password)){
-                                correctPassword = true;
-                                if(dataSnapshot.child(name).child("Users").hasChild(user)){
-                                    correctUserId = false;
-                                } else {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-                validateJoinInterface.validateJoin(correctName, correctPassword, correctUserId);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("DTAG", "onCancelled", databaseError.toException());
-            }
-        });
-    }
 
     public String getFirebaseUserId() {
         FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();

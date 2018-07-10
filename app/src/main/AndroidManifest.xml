@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".userLogin.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,22 +17,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".groupEvent.MainActivity"
             android:excludeFromRecents="true"
             android:theme="@style/AppTheme.NoTitle" />
         <activity
-            android:name=".CreateGroupActivity"
+            android:name=".groupEvent.CreateGroupActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.Alert.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".JoinGroupActivity"
+            android:name=".groupEvent.JoinGroupActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.Alert.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".GroupView"
+        <activity
+            android:name=".inGroup.GroupView"
             android:excludeFromRecents="true"
             android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name=".inGroup.CreateNewTask"
+            android:theme="@style/Theme.Alert.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

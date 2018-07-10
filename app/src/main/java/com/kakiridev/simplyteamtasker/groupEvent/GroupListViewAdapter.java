@@ -1,4 +1,4 @@
-package com.kakiridev.simplyteamtasker;
+package com.kakiridev.simplyteamtasker.groupEvent;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.kakiridev.simplyteamtasker.R;
 
 import java.util.List;
 

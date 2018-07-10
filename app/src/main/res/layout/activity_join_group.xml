@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="8dp"
     android:background="#ff7400"
-    tools:context=".JoinGroupActivity">
+    tools:context=".groupEvent.JoinGroupActivity">
 
     <TextView
         android:id="@+id/groupNameView"

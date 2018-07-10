@@ -1,10 +1,13 @@
-package com.kakiridev.simplyteamtasker;
+package com.kakiridev.simplyteamtasker.inGroup;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.kakiridev.simplyteamtasker.groupEvent.MainActivity;
+import com.kakiridev.simplyteamtasker.R;
 
 public class GroupView extends AppCompatActivity {
 
@@ -27,7 +30,10 @@ public class GroupView extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(GroupView.this, "FAB clicked", Toast.LENGTH_SHORT).show();
+
+
+                startActivity(new Intent(GroupView.this, CreateNewTask.class));
+             //   Toast.makeText(GroupView.this, "FAB clicked", Toast.LENGTH_SHORT).show();
             }
         });
     }

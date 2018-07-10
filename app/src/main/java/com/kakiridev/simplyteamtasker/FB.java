@@ -7,6 +7,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.kakiridev.simplyteamtasker.groupEvent.CheckNameInterface;
+import com.kakiridev.simplyteamtasker.groupEvent.UserGroupsInterface;
+import com.kakiridev.simplyteamtasker.groupEvent.ValidateJoinInterface;
 
 import java.util.ArrayList;
 

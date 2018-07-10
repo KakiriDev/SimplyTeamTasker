@@ -1,4 +1,4 @@
-package com.kakiridev.simplyteamtasker;
+package com.kakiridev.simplyteamtasker.groupEvent;
 
 import java.util.ArrayList;
 

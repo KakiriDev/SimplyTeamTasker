@@ -51,7 +51,8 @@ public class CreateGroupActivity extends AppCompatActivity {
 
                         if (available) {
                             if (comparePassword(groupPassword.getText().toString(), groupRepeatPassword.getText().toString())) {
-                                createGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUser());
+                                FB fb = new FB();
+                                fb.createGroup(groupName.getText().toString(), groupPassword.getText().toString(), getFirebaseUser());
                                 finish();
                             } else {
                                 Toast.makeText(CreateGroupActivity.this, "Password is incorrect!", Toast.LENGTH_LONG).show();
@@ -69,21 +70,7 @@ public class CreateGroupActivity extends AppCompatActivity {
         }
     }
 
-    public void createGroup(String name, String password, FirebaseUser user) {
 
-        HashMap<String, String> dataMap = new HashMap<String, String>();
-        dataMap.put("Password", password);
-        dataMap.put("Name", name);
-        DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference().child(name);
-        mdatabase.child("Settings").setValue(dataMap);
-
-        HashMap<String, String> dataMap2 = new HashMap<String, String>();
-        dataMap2.put("User", user.getUid());
-        dataMap2.put("User Name", user.getDisplayName());
-        dataMap2.put("User Email", user.getEmail());
-        mdatabase.child("Users").child(user.getUid()).setValue(dataMap2);
-
-    }
 
     public boolean comparePassword(String pass1, String pass2) {
         boolean compare;

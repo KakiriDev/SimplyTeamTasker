@@ -47,7 +47,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void initialButtons(){
+    /**
+     * initialize signin button
+     **/
+    private void initialButtons() {
         findViewById(R.id.sign_in_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +60,20 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * start Result Activity to login user
+     **/
+    private void signIn() {
+        //getting the google signin intent
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+
+        //starting the activity for result
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    /**
+     * initialize authorization
+     **/
     private void InitializeAuth() {
         //first we intialized the FirebaseAuth object
         mAuth = FirebaseAuth.getInstance();
@@ -72,18 +89,26 @@ public class LoginActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
-    public void checkUserLogin() {
-        if (mAuth.getCurrentUser() != null) {
-            finish();
-            startActivity(new Intent(this, MainActivity.class));
-        }
-    }
-
+    /**
+     * start checkUserLogin
+     * onStart is called every time when View is activated
+     **/
     @Override
     protected void onStart() {
         super.onStart();
 
         checkUserLogin();
+    }
+
+    /**
+     * check user is login
+     * if true => start MainActivity
+     **/
+    public void checkUserLogin() {
+        if (mAuth.getCurrentUser() != null) {
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
+        }
     }
 
     @Override
@@ -136,12 +161,5 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    //this method is called on click
-    private void signIn() {
-        //getting the google signin intent
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
 
-        //starting the activity for result
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
 }

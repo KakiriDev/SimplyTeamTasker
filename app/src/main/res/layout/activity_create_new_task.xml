@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#333333"
-        android:text="Name of Group" />
+        android:text="Task Name" />
 
     <EditText
         android:id="@+id/groupName"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textColor="#333333"
-        android:hint="Name of Group..."
+        android:hint="Task name..."
         android:inputType="textCapSentences" />
 
     <TextView
@@ -30,32 +30,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#333333"
-        android:text="Password" />
+        android:text="Task Description" />
 
     <EditText
         android:id="@+id/groupPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Password..."
+        android:hint="Task description..."
+        android:maxLines="7"
+        android:minLines="3"
         android:textColor="#333333"
-        android:inputType="textPassword|textCapSentences" />
-
-    <TextView
-        android:id="@+id/groupRepeatPasswordView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#333333"
-        android:text="Repeat Password" />
-
-    <EditText
-        android:id="@+id/groupRepeatPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Repeat Password..."
-        android:textColor="#333333"
-        android:inputType="textPassword|textCapSentences" />
+        android:inputType="textPassword|textCapSentences|textMultiLine" />
 
     <Button
         android:id="@+id/createGroup"
@@ -63,6 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="#333333"
-        android:text="Create Group" />
+        android:text="Create Task" />
 
 </LinearLayout>

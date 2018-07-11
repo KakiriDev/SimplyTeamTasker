@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.kakiridev.simplyteamtasker.groupEvent.CheckNameInterface;
 import com.kakiridev.simplyteamtasker.groupEvent.UserGroupsInterface;
 import com.kakiridev.simplyteamtasker.groupEvent.ValidateJoinInterface;
+import com.kakiridev.simplyteamtasker.inGroup.GetTaskInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +64,49 @@ public class FB {
                 }
                 //return list of groups loged user
                 userGroupsInterface.getGroupList(fbGroups);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+    }
+
+    /**
+     * get all groups selected user
+     * return ArrayList<String> - list of groups actually logged user
+     **/
+    ArrayList<Task> fbTasks;
+
+    public void getListOfTasks(final GetTaskInterface getTaskInterface, final String groupName) {
+
+        DatabaseReference mDatabaseTask = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("Groups").child(groupName).child("Tasks");
+
+        mDatabaseTask.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                fbTasks = new ArrayList<Task>();
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    if (dataSnapshot.getChildren() != null) {
+                        String taskId = dsp.getKey().toString();
+
+                      //  for (DataSnapshot dspp : dataSnapshot.getChildren()) {
+                            if (dataSnapshot.child(taskId).getChildren() != null) {
+                                Task task = dataSnapshot.child(taskId).getValue(Task.class);
+
+
+                                // if (user.equals(groupName)) {
+                                fbTasks.add(task);
+                                //   }
+                        //    }
+                        }
+                    }
+                    //return list of groups loged user
+                    getTaskInterface.getTaskList(fbTasks);
+                }
             }
 
             @Override

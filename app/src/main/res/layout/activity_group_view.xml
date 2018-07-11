@@ -6,7 +6,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context=".inGroup.GroupView"
-android:background="#ff7400"
+android:background="#9B8F85"
     android:id="@+id/relative">
 <LinearLayout
     android:orientation="vertical"

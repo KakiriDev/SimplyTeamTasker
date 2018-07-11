@@ -2,6 +2,7 @@ package com.kakiridev.simplyteamtasker;
 
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +15,7 @@ import com.kakiridev.simplyteamtasker.groupEvent.ValidateJoinInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class FB {
 
@@ -161,4 +163,17 @@ public class FB {
 
     }
 
+    public void createTask(Task task, String group) {
+        DatabaseReference mdatabase = FirebaseDatabase.getInstance().getReference().child("Groups").child(group).child("Tasks");
+
+        String key = mdatabase.push().getKey();
+        task.setId(key);
+        Map<String, Task> newTask = new HashMap<>();
+        newTask.put(key, task);
+        mdatabase.child(key).setValue(task);
+    }
+
+    public FirebaseUser getFirebaseUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
+    }
 }

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="#ff7400"
+    android:background="#9B8F85"
     tools:context=".groupEvent.JoinGroupActivity">
 
     <TextView

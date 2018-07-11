@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 TextView selectedText = v.findViewById(R.id.tv_group_name);
                 String groupName = selectedText.getText().toString();
-                Toast.makeText(getApplicationContext(), groupName, Toast.LENGTH_LONG).show();
                 startActivity_GroupView(groupName);
             }
         });

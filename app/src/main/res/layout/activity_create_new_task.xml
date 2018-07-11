@@ -6,18 +6,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="#ff7400"
+    android:background="#9B8F85"
     tools:context=".inGroup.CreateNewTask">
 
     <TextView
-        android:id="@+id/groupNameView"
+        android:id="@+id/taskNameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#333333"
         android:text="Task Name" />
 
     <EditText
-        android:id="@+id/groupName"
+        android:id="@+id/taskName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -26,14 +26,14 @@
         android:inputType="textCapSentences" />
 
     <TextView
-        android:id="@+id/groupPasswordView"
+        android:id="@+id/taskDescriptionView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#333333"
         android:text="Task Description" />
 
     <EditText
-        android:id="@+id/groupPassword"
+        android:id="@+id/taskDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -41,10 +41,10 @@
         android:maxLines="7"
         android:minLines="3"
         android:textColor="#333333"
-        android:inputType="textPassword|textCapSentences|textMultiLine" />
+        android:inputType="textCapSentences|textMultiLine" />
 
     <Button
-        android:id="@+id/createGroup"
+        android:id="@+id/createTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

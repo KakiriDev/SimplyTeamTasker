@@ -23,7 +23,10 @@ public class GroupView extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(GroupView.this, CreateNewTask.class));
+                Bundle extras = getIntent().getExtras();
+                Intent i = new Intent(GroupView.this, CreateNewTask.class);
+                i.putExtra("GROUP_NAME", extras.getString("GROUP_NAME"));
+                startActivity(i);
             }
         });
     }
